@@ -130,6 +130,8 @@ def train(lr, batch_size, epochs, dataset, architecture, exp_id=None, sequence=N
     trainloader = torch.utils.data.DataLoader(subset, batch_size=batch_size, num_workers=0, pin_memory=True)
     net.train()
 
+    ###############################################################
+    # create the hash for a sequence
     if save_freq is not None and save_freq > 0:
         m = hashlib.sha256()
         for d in subset.dataset.data:

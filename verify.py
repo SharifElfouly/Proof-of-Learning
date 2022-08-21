@@ -12,6 +12,7 @@ import model as custom_model
 
 
 def verify_all(dir, lr, batch_size, dataset, architecture, save_freq, order, threshold, half=0):
+    "verify all sequences"
     if not os.path.exists(dir):
         raise FileNotFoundError("Model directory not found")
     sequence = np.load(os.path.join(dir, "indices.npy"))
@@ -55,6 +56,7 @@ def verify_all(dir, lr, batch_size, dataset, architecture, save_freq, order, thr
 
 
 def verify_topq(dir, lr, batch_size, dataset, architecture, save_freq, order, threshold, epochs=1, q=10, half=0):
+    "only verify the steps with largest updates (the first q)"
     if not os.path.exists(dir):
         raise FileNotFoundError("Model directory not found")
     sequence = np.load(os.path.join(dir, "indices.npy"))
@@ -124,6 +126,9 @@ def verify_topq(dir, lr, batch_size, dataset, architecture, save_freq, order, th
 
 
 def verify_initialization(dir, architecture, threshold=0.01, net=None, verbose=True):
+    """
+    Q: only resnets are supported?
+    """
     device = torch.device('cuda:0' if torch.cuda.is_available() else 'cpu')
     if net is None:
         net = architecture()
@@ -186,6 +191,7 @@ def verify_initialization(dir, architecture, threshold=0.01, net=None, verbose=T
 
 
 def verify_hash(dir, dataset):
+    "check if trainset hash is equal to our hash"
     if not os.path.exists(dir):
         raise FileNotFoundError("Model directory not found")
     sequence = np.load(os.path.join(dir, "indices.npy"))
