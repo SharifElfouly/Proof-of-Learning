@@ -110,6 +110,8 @@ def train(
         if not os.path.exists(save_dir):
             os.mkdir(save_dir)
         else:
+            ##################################################################
+            # load pre-trained model
             if resume:
                 try:
                     ind = -1
@@ -143,6 +145,7 @@ def train(
                     pass
                 if ind == -1:
                     ind = None
+            ##################################################################
 
         np.save(os.path.join(save_dir, "indices.npy"), sequence)
 
