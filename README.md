@@ -5,6 +5,10 @@ Security and Privacy. In this paper, we introduce the concept of proof-of-learni
 
 We test our code on two datasets: CIFAR-10, and CIFAR-100. 
 
+## TODO
+
+- Implement the Proof Of Learning [Paper](https://arxiv.org/abs/2103.05633).
+
 ### Dependency
 Our code is implemented and tested on PyTorch. Following packages are used:
 ```
