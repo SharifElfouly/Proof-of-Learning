@@ -28,6 +28,8 @@ def train(
     half=False,
     resume=False,
 ):
+    print("#" * 30)
+    print("I'm training now!!")
     device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
 
     if sequence is not None or model_dir is not None:
@@ -162,7 +164,9 @@ def train(
     # create the hash for all sequences
     if save_freq is not None and save_freq > 0:
         m = hashlib.sha256()
-        for d in subset.dataset.data:
+        # we iterate over everything
+        for i, d in enumerate(subset.dataset.data):
+            print(i, len(subset.dataset.data))
             m.update(d.__str__().encode("utf-8"))
         f = open(os.path.join(save_dir, "hash.txt"), "x")
         f.write(m.hexdigest())
@@ -202,6 +206,7 @@ def train(
         state = {"net": net.state_dict(), "optimizer": optimizer.state_dict()}
         if scheduler is not None:
             state["scheduler"] = scheduler.state_dict()
+        # last model after last epoch
         torch.save(state, os.path.join(save_dir, f"model_step_{num_step}"))
 
     return net
